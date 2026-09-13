@@ -29,8 +29,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Expo Asset
-        run: npx expo install expo-asset
+      - name: Install required Expo packages
+        run: npx expo install expo-asset expo-font
 
       - name: Align Expo dependencies
         run: npx expo install --fix
