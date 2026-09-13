@@ -17,7 +17,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./logo_hap_pas_hapi_8K-1.png
+        "foregroundImage": "./logo_hap_pas_hapi_8K-1.png",
         "backgroundColor": "#FFFFFF"
       },
       "icon": "./logo_hap_pas_hapi_8K-1.png
