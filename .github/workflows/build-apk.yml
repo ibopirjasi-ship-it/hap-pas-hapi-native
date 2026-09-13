@@ -27,7 +27,10 @@ jobs:
           java-version: "17"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
+
+      - name: Install Expo Asset
+        run: npx expo install expo-asset
 
       - name: Align Expo dependencies
         run: npx expo install --fix
@@ -35,6 +38,7 @@ jobs:
       - name: Generate Android project
         env:
           CI: "1"
+          NODE_ENV: production
         run: npx expo prebuild --platform android --clean
 
       - name: Make Gradle executable
@@ -42,10 +46,13 @@ jobs:
 
       - name: Build APK
         working-directory: android
-        run: ./gradlew assembleRelease
+        env:
+          NODE_ENV: production
+        run: ./gradlew assembleRelease --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Hap-pas-Hapi-APK
           path: android/app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
