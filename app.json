@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "Hap pas Hapi",
+    "slug": "hap-pas-hapi",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "happashapi",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "icon": "./assets/icon.png",
+      "package": "com.happashapi.gjermanisht"
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "icon": "./assets/icon.png"
+  }
+}
