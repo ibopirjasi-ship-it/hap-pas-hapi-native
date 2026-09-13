@@ -1,0 +1,22 @@
+import { StyleSheet, View, Text } from "react-native";
+
+export default function HomeScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Hap pas Hapi</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#ffffff",
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+  },
+});
