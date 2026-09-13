@@ -20,12 +20,12 @@
         "foregroundImage": "./logo_hap_pas_hapi_8K-1.png",
         "backgroundColor": "#FFFFFF"
       },
-      "icon": "./logo_hap_pas_hapi_8K-1.png",
+      "icon": "./logo_hap_pas_hapi_8K-1.png"
       "package": "com.happashapi.gjermanisht"
     },
     "web": {
       "bundler": "metro"
     },
-    "icon": "./logo_hap_pas_hapi_8K-1.png",
+    "icon": "./logo_hap_pas_hapi_8K-1.png"
   }
 }
