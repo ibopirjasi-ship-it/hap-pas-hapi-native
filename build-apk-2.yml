@@ -1,0 +1,71 @@
+name: Build Hap pas Hapi APK
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install required Expo packages
+        run: npx expo install expo-asset expo-font
+
+      - name: Align Expo dependencies
+        run: npx expo install --fix
+
+      - name: Generate Android project
+        env:
+          CI: "1"
+          NODE_ENV: production
+        run: npx expo prebuild --platform android --clean
+
+      - name: Make Gradle executable
+        run: chmod +x android/gradlew
+
+      - name: Build APK
+        working-directory: android
+        env:
+          NODE_ENV: production
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Build Android App Bundle
+        working-directory: android
+        env:
+          NODE_ENV: production
+        run: ./gradlew bundleRelease --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Hap-pas-Hapi-APK
+          path: android/app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
+
+      - name: Upload unsigned App Bundle for inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: Hap-pas-Hapi-UNSIGNED-AAB
+          path: android/app/build/outputs/bundle/release/*.aab
+          if-no-files-found: error
