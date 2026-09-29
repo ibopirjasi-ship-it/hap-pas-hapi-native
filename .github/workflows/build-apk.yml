@@ -2,54 +2,43 @@ name: Build Hap pas Hapi APK
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: "17"
-
+          java-version: '17'
       - name: Install dependencies
         run: npm install
-
-      - name: Install required Expo packages
-        run: npx expo install expo-asset expo-font
-
+      - name: Install WebView for this Expo SDK
+        run: npx expo install react-native-webview
       - name: Align Expo dependencies
         run: npx expo install --fix
-
       - name: Generate Android project
         env:
-          CI: "1"
+          CI: '1'
           NODE_ENV: production
         run: npx expo prebuild --platform android --clean
-
       - name: Make Gradle executable
         run: chmod +x android/gradlew
-
       - name: Build APK
         working-directory: android
         env:
           NODE_ENV: production
         run: ./gradlew assembleRelease --no-daemon
-
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
